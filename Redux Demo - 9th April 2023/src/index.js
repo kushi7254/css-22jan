@@ -13,6 +13,11 @@ import ProfilePage from "./components/pages/ProfilePage";
 import CounterPage from "./components/pages/CounterPage";
 import LoginPage from "./components/pages/LoginPage";
 import App from "./App";
+import AllUsers from "./components/AllUsers";
+import UserDetails from "./components/UserDetails";
+import { Provider } from "react-redux";
+import store from "./redux/store/store";
+import FetchUsers from "./components/FetchUsers";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,14 +27,19 @@ root.render(
     {/* <Login /> */}
     {/* <ToDoList /> */}
     {/* <UserProfile /> */}
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/counter" element={<CounterPage />} />
-        <Route path="/profile/:id" element={<ProfilePage />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/counter" element={<CounterPage />} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/users" element={<AllUsers />} />
+          <Route path="/users/:id" element={<UserDetails />} />
+          <Route path="/fetch" element={<FetchUsers />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
