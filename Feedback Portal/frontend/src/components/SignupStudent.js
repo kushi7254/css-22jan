@@ -5,16 +5,23 @@ const SignupStudent = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userMessage, setUserMessage] = useState("");
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        axios.post("http://localhost:3001/register", {
-          username: username,
-          email: email,
-          password: password,
-        });
+        axios
+          .post("http://localhost:3001/register", {
+            username: username,
+            email: email,
+            password: password,
+          })
+          .then((res) =>
+            res.data.success === true
+              ? (window.location.href = "/login")
+              : setUserMessage(res.data.message)
+          );
       }}
     >
       <input
@@ -44,6 +51,7 @@ const SignupStudent = () => {
         }}
       />
       <input type="submit" value="Signup" />
+      <p>{userMessage}</p>
     </form>
   );
 };
